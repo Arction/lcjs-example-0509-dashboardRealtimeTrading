@@ -1,91 +1,100 @@
-# lcjs-example-0509-dashboardRealtimeTrading
+# JavaScript Real-Time Trading Dashboard
+
+![JavaScript Real-Time Trading Dashboard](dashboardRealtimeTrading.png)
+
+This demo application belongs to the set of examples for LightningChart JS, data visualization library for JavaScript.
+
+LightningChart JS is entirely GPU accelerated and performance optimized charting library for presenting massive amounts of data. It offers an easy way of creating sophisticated and interactive charts and adding them to your website or web application.
+
+The demo can be used as an example or a seed project. Local execution requires the following steps:
+
+- Make sure that relevant version of [Node.js](https://nodejs.org/en/download/) is installed
+- Open the project folder in a terminal:
+
+        npm install              # fetches dependencies
+        npm start                # builds an application and starts the development server
+
+- The application is available at *http://localhost:8080* in your browser, webpack-dev-server provides hot reload functionality.
+
+
+## Description
 
 This example showcases how LightningChart JS can be used to enable next-generation Fintech chart applications.
 
-## Getting started
+As proven in our [2021 line charts performance comparison](https://www.arction.com/javascript-charts-performance-comparison/), LightningChart JS line charts are **over 700 times faster** than other web charts. Especially in real-time applications LightningChart enables the creation of data visualization applications unlike anything seen before in web pages.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+By default, this example will show a small dashboard that displays the price variation of nine imaginary stock trends in real-time.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+**However**, the real treat is activated by pressing the "Click here to show full 10x10 dashboard" button inside the chart. This is intended for Desktop users, as the complete application requires quite a bit of space.
 
-## Add your files
+![](./assets/show-full.png "Show full 10x10 Dashboard example")
 
-- [ ] [Create](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+In its full size, the example shows 100 line charts. Each chart is connected to a real-time data source (random data, doesn't reflect any real stock price), the sampling rate is 1 000 data points per second **for every chart**. This sums up to **100 000** processed data points per second.
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/arction/lcjs/lcjs-examples/lcjs-example-0509-dashboardrealtimetrading.git
-git branch -M master
-git push -uf origin master
-```
+In addition to this, every chart has a little embedded statistical panel which displays the newest price and the price change between the newest  and oldest visible price.
 
-## Integrate with your tools
+In the previously mentioned performance comparison study we tested this kind of applications with the major manufacturers who claim their charts to be **high-performance oriented** or **the fastest**. The results showed that the wide majority of web charts are not applicable to real-time visualization of even as little as 1 000 data points per second.
 
-- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://docs.gitlab.com/ee/user/project/integrations/)
+Why not? Because the charts spend too much time processing this amount of data. This can be observed by the web page visibly slowing down, preventing users from interacting with their browser.
 
-## Collaborate with your team
+To learn more about LightningChart JS and its Fintech capabilities, here are some potentially interesting links:
 
-- [ ] [Invite team members and collaborators](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Automatically merge when pipeline succeeds](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+- [Ultra Precision Fintech Charts](https://www.arction.com/lightningchart-js-interactive-examples/examples/lcjs-example-0024-ultraPrecisionTradingChart.html) (1 microsecond precision!)
 
-## Test and Deploy
+- [LC JS Trading + Indicators (Volume, RSI, SMA, EMA) Showcase with real trading data from alphavantage.co](https://arction.github.io/lcjs-showcase-trading/)
 
-Use the built-in continuous integration in GitLab.
+- [Candlestick, Area, DateTime features and more](https://www.arction.com/lightningchart-js-interactive-examples/examples/lcjs-example-0502-dashboardTrading.html)
 
-- [ ] [Get started with GitLab CI/CD](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://docs.gitlab.com/ee/user/clusters/agent/)
+- [Latest news on LC JS performance](https://www.arction.com/high-performance-javascript-charts/)
 
-***
 
-# Editing this README
+## API Links
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://gitlab.com/-/experiment/new_project_readme_content:ca032c6e392c683c0c42fd2192e5d70d?https://www.makeareadme.com/) for this template.
+* [Dashboard]
+* [XY cartesian chart]
+* [Line series]
+* [Axis]
+* [Axis tick strategies]
+* [Axis scroll strategies]
+* [UI position origins]
+* [UI layout builders]
+* [UI element builders]
+* [Solid FillStyle]
+* [RGBA color factory]
+* [Time formatting functions]
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
 ## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+If you notice an error in the example code, please open an issue on [GitHub][0] repository of the entire example.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Official [API documentation][1] can be found on [Arction][2] website.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+If the docs and other materials do not solve your problem as well as implementation help is needed, ask on [StackOverflow][3] (tagged lightningchart).
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+If you think you found a bug in the LightningChart JavaScript library, please contact support@arction.com.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Direct developer email support can be purchased through a [Support Plan][4] or by contacting sales@arction.com.
 
-## License
-For open source projects, say how it is licensed.
+[0]: https://github.com/Arction/
+[1]: https://www.arction.com/lightningchart-js-api-documentation/
+[2]: https://www.arction.com
+[3]: https://stackoverflow.com/questions/tagged/lightningchart
+[4]: https://www.arction.com/support-services/
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+© Arction Ltd 2009-2020. All rights reserved.
+
+
+[Dashboard]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/classes/dashboard.html
+[XY cartesian chart]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/classes/chartxy.html
+[Line series]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/classes/lineseries.html
+[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/classes/axis.html
+[Axis tick strategies]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/globals.html#axistickstrategies
+[Axis scroll strategies]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/globals.html#axisscrollstrategies
+[UI position origins]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/globals.html#uiorigins
+[UI layout builders]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/globals.html#uilayoutbuilders
+[UI element builders]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/globals.html#uielementbuilders
+[Solid FillStyle]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/classes/solidfill.html
+[RGBA color factory]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/globals.html#colorrgba
+[Time formatting functions]: https://www.arction.com/lightningchart-js-api-documentation/v3.1.0/
 
