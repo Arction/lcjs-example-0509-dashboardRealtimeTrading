@@ -40,11 +40,16 @@ const HISTORYMS = 60 * 1000
 const dashboard = lightningChart()
     .Dashboard({
         numberOfColumns: COLUMNS,
-        numberOfRows: ROWS,
+        numberOfRows: ROWS + 1,
         disableAnimations: true,
         // theme: Themes.darkGold
     })
     .setSplitterStyle(new SolidLine({thickness: 0}))
+
+const uiPanel = dashboard.createUIPanel({columnIndex: 0, rowIndex: 0, columnSpan: COLUMNS})
+const uiPanelHeightPx = showFullDashboard ? 24 : 64
+const dashboardHeightPx = dashboard.engine.container.getBoundingClientRect().height
+dashboard.setRowHeight(0, ROWS * uiPanelHeightPx / (dashboardHeightPx - uiPanelHeightPx))
 
 const chartList = []
 for (let column = 0; column < COLUMNS; column += 1) {
@@ -52,7 +57,7 @@ for (let column = 0; column < COLUMNS; column += 1) {
         const chart = dashboard
             .createChartXY({
                 columnIndex: column,
-                rowIndex: row,
+                rowIndex: row + 1,
             })
             .setTitleFillStyle(emptyFill)
             .setTitleMarginTop(0)
@@ -68,17 +73,11 @@ for (let column = 0; column < COLUMNS; column += 1) {
             .setInterval(-HISTORYMS, 0)
         const axisY = chart.getDefaultAxisY().setTickStrategy(AxisTickStrategies.Empty).setMouseInteractions(false)
         chartList.push(chart)
-
-        if (row === 0) {
-            // Add padding for ui at top of dashboard.
-            chart.setPadding({ top: showFullDashboard ? 20 : 60 })
-        }
     }
 }
 
-const uiChart = chartList[showFullDashboard ? 40 : 3]
 // Add title
-uiChart
+uiPanel
     .addUIElement(UIElementBuilders.TextBox.setBackground(UIBackgrounds.None))
     .setText(`${COLUMNS * ROWS} live trading channels (1 ms resolution) 1 minute history`)
     .setMouseInteractions(false)
@@ -87,7 +86,7 @@ uiChart
 
 if (! showFullDashboard) {
     // Add button that will display the full 10x10 dashboard (for users with large monitors).
-    uiChart.addUIElement(UIElementBuilders.TextBox)
+    uiPanel.addUIElement(UIElementBuilders.TextBox)
         .setText('Click here to show full 10x10 dashboard')
         .setPosition({x: 50, y: 100})
         .setOrigin(UIOrigins.CenterTop)
@@ -96,7 +95,7 @@ if (! showFullDashboard) {
         .setMouseStyle(MouseStyles.Point)
         .onMouseClick(() => {
             // Add '?full = true' to URL and reload page.
-            let url = location.href
+            let url = window.location.href
             url += (url.split('?')[1] ? '&':'?') + 'full=true'
             window.location.href = url
         })
@@ -250,7 +249,6 @@ Promise.all(
                 chartUi.labelLastValue.setText(lastValue)
             })
         })
-        tPrev = tNow
         requestAnimationFrame(pushData)
     }
     pushData()
