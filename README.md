@@ -96,5 +96,5 @@ Direct developer email support can be purchased through a [Support Plan][4] or b
 [UI element builders]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/globals.html#uielementbuilders
 [Solid FillStyle]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/classes/solidfill.html
 [RGBA color factory]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/globals.html#colorrgba
-[Time formatting functions]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/
+[Time formatting functions]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/globals.html#timeformattingfunctions
 
