@@ -85,16 +85,16 @@ Direct developer email support can be purchased through a [Support Plan][4] or b
 © Arction Ltd 2009-2020. All rights reserved.
 
 
-[Dashboard]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/classes/dashboard.html
-[XY cartesian chart]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/classes/chartxy.html
-[Line series]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/classes/lineseries.html
-[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/classes/axis.html
-[Axis tick strategies]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/globals.html#axistickstrategies
-[Axis scroll strategies]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/globals.html#axisscrollstrategies
-[UI position origins]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/globals.html#uiorigins
-[UI layout builders]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/globals.html#uilayoutbuilders
-[UI element builders]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/globals.html#uielementbuilders
-[Solid FillStyle]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/classes/solidfill.html
-[RGBA color factory]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/globals.html#colorrgba
-[Time formatting functions]: https://www.arction.com/lightningchart-js-api-documentation/v3.3.0/globals.html#timeformattingfunctions
+[Dashboard]: https://www.arction.com/lightningchart-js-api-documentation/v3.4.0/classes/dashboard.html
+[XY cartesian chart]: https://www.arction.com/lightningchart-js-api-documentation/v3.4.0/classes/chartxy.html
+[Line series]: https://www.arction.com/lightningchart-js-api-documentation/v3.4.0/classes/lineseries.html
+[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v3.4.0/classes/axis.html
+[Axis tick strategies]: https://www.arction.com/lightningchart-js-api-documentation/v3.4.0/globals.html#axistickstrategies
+[Axis scroll strategies]: https://www.arction.com/lightningchart-js-api-documentation/v3.4.0/globals.html#axisscrollstrategies
+[UI position origins]: https://www.arction.com/lightningchart-js-api-documentation/v3.4.0/globals.html#uiorigins
+[UI layout builders]: https://www.arction.com/lightningchart-js-api-documentation/v3.4.0/globals.html#uilayoutbuilders
+[UI element builders]: https://www.arction.com/lightningchart-js-api-documentation/v3.4.0/globals.html#uielementbuilders
+[Solid FillStyle]: https://www.arction.com/lightningchart-js-api-documentation/v3.4.0/classes/solidfill.html
+[RGBA color factory]: https://www.arction.com/lightningchart-js-api-documentation/v3.4.0/globals.html#colorrgba
+[Time formatting functions]: https://www.arction.com/lightningchart-js-api-documentation/v3.4.0/globals.html#timeformattingfunctions
 
