@@ -6,8 +6,12 @@
  * Live analytics are placed inside each chart, displaying the last Y value and visible value change (%).
  */
 
+// Import LightningChartJS
 const lcjs = require('@arction/lcjs')
+
+// Import xydata
 const xydata = require('@arction/xydata')
+
 const {
     lightningChart,
     emptyLine,
@@ -26,6 +30,7 @@ const {
     MouseStyles,
     Themes,
 } = lcjs
+
 const { createProgressiveTraceGenerator } = xydata
 
 // Check whether should display 10x10 dashboard (requires large monitor), or smaller 3x3 dashboard (works on all devices nicely).
@@ -41,15 +46,14 @@ const dashboard = lightningChart()
     .Dashboard({
         numberOfColumns: COLUMNS,
         numberOfRows: ROWS + 1,
-        disableAnimations: true,
         // theme: Themes.darkGold
     })
-    .setSplitterStyle(new SolidLine({thickness: 0}))
+    .setSplitterStyle(new SolidLine({ thickness: 0 }))
 
-const uiPanel = dashboard.createUIPanel({columnIndex: 0, rowIndex: 0, columnSpan: COLUMNS})
+const uiPanel = dashboard.createUIPanel({ columnIndex: 0, rowIndex: 0, columnSpan: COLUMNS })
 const uiPanelHeightPx = showFullDashboard ? 24 : 64
 const dashboardHeightPx = dashboard.engine.container.getBoundingClientRect().height
-dashboard.setRowHeight(0, ROWS * uiPanelHeightPx / (dashboardHeightPx - uiPanelHeightPx))
+dashboard.setRowHeight(0, (ROWS * uiPanelHeightPx) / (dashboardHeightPx - uiPanelHeightPx))
 
 const chartList = []
 for (let column = 0; column < COLUMNS; column += 1) {
@@ -60,18 +64,26 @@ for (let column = 0; column < COLUMNS; column += 1) {
                 rowIndex: row + 1,
             })
             .setTitleFillStyle(emptyFill)
-            .setTitleMarginTop(0)
-            .setTitleMarginBottom(0)
+            .setTitleMargin({ top: 0, bottom: 0 })
             .setPadding(0)
             .setMouseInteractions(false)
-            .setAutoCursor((autoCursor) => autoCursor.disposeTickMarkerX().disposeTickMarkerY().setAutoFitStrategy(undefined))
+            .setAutoCursor((autoCursor) =>
+                autoCursor.setTickMarkerXVisible(false).setTickMarkerYVisible(false).setAutoFitStrategy(undefined),
+            )
         const axisX = chart
             .getDefaultAxisX()
             .setTickStrategy(AxisTickStrategies.Empty)
             .setMouseInteractions(false)
             .setScrollStrategy(AxisScrollStrategies.progressive)
-            .setInterval(-HISTORYMS, 0)
-        const axisY = chart.getDefaultAxisY().setTickStrategy(AxisTickStrategies.Empty).setMouseInteractions(false)
+            .setInterval({ start: -HISTORYMS, end: 0, stopAxisAfter: false })
+            .setStrokeStyle(emptyLine)
+            .setAnimationScroll(false)
+        const axisY = chart
+            .getDefaultAxisY()
+            .setTickStrategy(AxisTickStrategies.Empty)
+            .setMouseInteractions(false)
+            .setStrokeStyle(emptyLine)
+            .setAnimationScroll(false)
         chartList.push(chart)
     }
 }
@@ -81,14 +93,15 @@ uiPanel
     .addUIElement(UIElementBuilders.TextBox.setBackground(UIBackgrounds.None))
     .setText(`${COLUMNS * ROWS} live trading channels (1 ms resolution) 1 minute history`)
     .setMouseInteractions(false)
-    .setPosition({x: 50, y: 100})
+    .setPosition({ x: 50, y: 100 })
     .setOrigin(UIOrigins.CenterTop)
 
-if (! showFullDashboard) {
+if (!showFullDashboard) {
     // Add button that will display the full 10x10 dashboard (for users with large monitors).
-    uiPanel.addUIElement(UIElementBuilders.TextBox)
+    uiPanel
+        .addUIElement(UIElementBuilders.TextBox)
         .setText('Click here to show full 10x10 dashboard')
-        .setPosition({x: 50, y: 100})
+        .setPosition({ x: 50, y: 100 })
         .setOrigin(UIOrigins.CenterTop)
         .setMargin(30)
         .setDraggingMode(UIDraggingModes.notDraggable)
@@ -96,7 +109,7 @@ if (! showFullDashboard) {
         .onMouseClick(() => {
             // Add '?full = true' to URL and reload page.
             let url = window.location.href
-            url += (url.split('?')[1] ? '&':'?') + 'full=true'
+            url += (url.split('?')[1] ? '&' : '?') + 'full=true'
             window.location.href = url
         })
 }
@@ -104,12 +117,11 @@ if (! showFullDashboard) {
 // Add chart specific UI elements.
 const chartUiList = chartList.map((chart) => {
     const uiLayout = chart
-        .addUIElement(UILayoutBuilders.Column, {x: chart.uiScale, y: chart.getDefaultAxisY()})
+        .addUIElement(UILayoutBuilders.Column, { x: chart.uiScale, y: chart.getDefaultAxisY() })
         .setOrigin(UIOrigins.LeftTop)
         .setPosition({ x: 0, y: chart.getDefaultAxisY().getInterval().end })
         .setMouseInteractions(false)
-        .setBackground((background) => background.setStrokeStyle(emptyLine))
-    chart.getDefaultAxisY().onScaleChange((start, end) => uiLayout.setPosition({ x: 0, y: end }))
+    chart.getDefaultAxisY().onIntervalChange((_, start, end) => uiLayout.setPosition({ x: 0, y: end }))
     uiLayout
         .addElement(UIElementBuilders.TextBox)
         .setText('< Stock name >')
