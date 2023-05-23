@@ -1,9 +1,5 @@
 /**
- * Next-generation intensive trading application example with LightningChart.
- *
  * 100 charts, each receive 1000 new data points every second that are immediately displayed in real-time.
- *
- * Live analytics are placed inside each chart, displaying the last Y value and visible value change (%).
  */
 
 // Import LightningChartJS
@@ -91,7 +87,7 @@ for (let column = 0; column < COLUMNS; column += 1) {
 // Add title
 uiPanel
     .addUIElement(UIElementBuilders.TextBox.setBackground(UIBackgrounds.None))
-    .setText(`${COLUMNS * ROWS} live trading channels (1 ms resolution) 1 minute history`)
+    .setText(`${COLUMNS * ROWS} live channels (1 ms resolution) 1 minute history`)
     .setMouseInteractions(false)
     .setPosition({ x: 50, y: 100 })
     .setOrigin(UIOrigins.CenterTop)
@@ -114,41 +110,6 @@ if (!showFullDashboard) {
         })
 }
 
-// Add chart specific UI elements.
-const chartUiList = chartList.map((chart) => {
-    const uiLayout = chart
-        .addUIElement(UILayoutBuilders.Column, { x: chart.uiScale, y: chart.getDefaultAxisY() })
-        .setOrigin(UIOrigins.LeftTop)
-        .setPosition({ x: 0, y: chart.getDefaultAxisY().getInterval().end })
-        .setMouseInteractions(false)
-    chart.getDefaultAxisY().onIntervalChange((_, start, end) => uiLayout.setPosition({ x: 0, y: end }))
-    uiLayout
-        .addElement(UIElementBuilders.TextBox)
-        .setText('< Stock name >')
-        .setTextFont((font) => font.setSize(8))
-        .setMargin({ bottom: -6 })
-    const rowLastValue = uiLayout.addElement(UILayoutBuilders.Row).setMargin({ bottom: -6 })
-    const rowChange = uiLayout.addElement(UILayoutBuilders.Row)
-    rowLastValue
-        .addElement(UIElementBuilders.TextBox)
-        .setText('Last value:')
-        .setTextFont((font) => font.setSize(8))
-    const labelLastValue = rowLastValue
-        .addElement(UIElementBuilders.TextBox)
-        .setText('')
-        .setTextFont((font) => font.setSize(8))
-    rowChange
-        .addElement(UIElementBuilders.TextBox)
-        .setText('Change:')
-        .setTextFont((font) => font.setSize(8))
-    const labelChange = rowChange
-        .addElement(UIElementBuilders.TextBox)
-        .setText('')
-        .setTextFont((font) => font.setSize(8))
-
-    return { labelLastValue, labelChange }
-})
-
 const seriesList = chartList.map((chart, i) => {
     const series = chart
         .addLineSeries({
@@ -161,7 +122,7 @@ const seriesList = chartList.map((chart, i) => {
             // Pass custom supplied index for automatic series coloring.
             automaticColorIndex: i,
         })
-        .setName(`< Stock name >`)
+        .setName(`Channel ${i + 1}`)
         .setStrokeStyle((stroke) => stroke.setThickness(1))
         .setDataCleaning({
             minDataPointCount: 1000,
@@ -218,8 +179,6 @@ Promise.all(
         dataSetsAndSeries.push({
             dataSet: pair.dataSet,
             seriesList: [pair.series],
-            // Extra array that is used to keep memory of actively visible data points. Used for calculating visible change of Y values.
-            visibleDataPoints: [],
         })
     })
     const dataSetsCount = dataSetsAndSeries.length
@@ -245,46 +204,8 @@ Promise.all(
             item.seriesList.forEach((series) => {
                 series.add(newPoints)
             })
-
-            // Update analytics UI for each chart that uses the same data set.
-            const lastValue = item.seriesList[0].axisY.formatValue(newPoints[newPoints.length - 1].y)
-
-            // Update list of visible data points.
-            // NOTE: push ... syntax is known to cause errors with really large arrays, this is just a bit of extra safety to prevent random crashes when chart is hidden to background and opened after a long time.
-            if (newPoints.length < 100000) {
-                item.visibleDataPoints.push(...newPoints)
-            }
-
-            // Update chart UI that displays last value.
-            item.seriesList.forEach((series) => {
-                const chartUi = chartUiList[chartList.indexOf(series.chart)]
-                chartUi.labelLastValue.setText(lastValue)
-            })
         })
         requestAnimationFrame(pushData)
     }
     pushData()
-
-    // Logic for displaying visible value change for each chart.
-    const fillStylePositiveChange = new SolidFill({ color: ColorRGBA(0, 255, 0) })
-    const fillStyleNegativeChange = new SolidFill({ color: ColorRGBA(255, 0, 0) })
-    const updateVisibleChange = () => {
-        dataSetsAndSeries.forEach((item, i) => {
-            if (item.visibleDataPoints.length > HISTORYMS) {
-                item.visibleDataPoints = item.visibleDataPoints.slice(item.visibleDataPoints.length - HISTORYMS)
-            }
-            const yStart = item.visibleDataPoints[0].y
-            const yEnd = item.visibleDataPoints[item.visibleDataPoints.length - 1].y
-            const visibleChange =
-                yEnd > yStart ? `${((yEnd / yStart - 1) * 100).toFixed(1)}%` : `-${((1 - yEnd / yStart) * 100).toFixed(1)}%`
-
-            item.seriesList.forEach((series) => {
-                const chartUi = chartUiList[chartList.indexOf(series.chart)]
-                chartUi.labelChange
-                    .setText(visibleChange)
-                    .setTextFillStyle(yEnd > yStart ? fillStylePositiveChange : fillStyleNegativeChange)
-            })
-        })
-    }
-    setInterval(updateVisibleChange, 2000)
 })

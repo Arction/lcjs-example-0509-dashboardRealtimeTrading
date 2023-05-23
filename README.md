@@ -1,6 +1,6 @@
-# JavaScript Real-Time Trading Dashboard
+# JavaScript Real-Time Trend Dashboard
 
-![JavaScript Real-Time Trading Dashboard](dashboardRealtimeTrading-darkGold.png)
+![JavaScript Real-Time Trend Dashboard](dashboardRealtimeTrading-darkGold.png)
 
 This demo application belongs to the set of examples for LightningChart JS, data visualization library for JavaScript.
 
@@ -19,31 +19,21 @@ The demo can be used as an example or a seed project. Local execution requires t
 
 ## Description
 
-This example showcases how LightningChart JS can be used to enable next-generation Fintech chart applications.
-
 As proven in our [2021 line charts performance comparison](https://lightningchart.com/javascript-charts-performance-comparison/), LightningChart JS line charts are **over 700 times faster** than other web charts. Especially in real-time applications LightningChart enables the creation of data visualization applications unlike anything seen before in web pages.
 
-By default, this example will show a small dashboard that displays the price variation of nine imaginary stock trends in real-time.
+By default, this example will show a small dashboard that displays nine real-time trends.
 
 **However**, the real treat is activated by pressing the "Click here to show full 10x10 dashboard" button inside the chart. This is intended for Desktop users, as the complete application requires quite a bit of space.
 
 ![](./assets/show-full.png 'Show full 10x10 Dashboard example')
 
-In its full size, the example shows 100 line charts. Each chart is connected to a real-time data source (random data, doesn't reflect any real stock price), the sampling rate is 1 000 data points per second **for every chart**. This sums up to **100 000** processed data points per second.
-
-In addition to this, every chart has a little embedded statistical panel which displays the newest price and the price change between the newest and oldest visible price.
+In its full size, the example shows 100 line charts. Each chart is connected to a real-time data source (random data), the sampling rate is 1 000 data points per second **for every chart**. This sums up to **100 000** processed data points per second.
 
 In the previously mentioned performance comparison study we tested this kind of applications with the major manufacturers who claim their charts to be **high-performance oriented** or **the fastest**. The results showed that the wide majority of web charts are not applicable to real-time visualization of even as little as 1 000 data points per second.
 
 Why not? Because the charts spend too much time processing this amount of data. This can be observed by the web page visibly slowing down, preventing users from interacting with their browser.
 
-To learn more about LightningChart JS and its Fintech capabilities, here are some potentially interesting links:
-
--   [Ultra Precision Fintech Charts](https://lightningchart.com/lightningchart-js-interactive-examples/examples/lcjs-example-0024-ultraPrecisionTradingChart.html) (1 microsecond precision!)
-
--   [LC JS Trading + Indicators (Volume, RSI, SMA, EMA) Showcase with real trading data from alphavantage.co](https://arction.github.io/lcjs-showcase-trading/)
-
--   [Candlestick, Area, DateTime features and more](https://lightningchart.com/lightningchart-js-interactive-examples/examples/lcjs-example-0502-dashboardTrading.html)
+To learn more about LightningChart JS, here are some potentially interesting links:
 
 -   [Latest news on LC JS performance](https://lightningchart.com/high-performance-javascript-charts/)
 
@@ -85,16 +75,16 @@ Direct developer email support can be purchased through a [Support Plan][4] or b
 © LightningChart Ltd 2009-2022. All rights reserved.
 
 
-[Dashboard]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/classes/Dashboard.html
-[XY cartesian chart]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/classes/ChartXY.html
-[Line series]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/classes/LineSeries.html
-[Axis]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/classes/Axis.html
-[Axis tick strategies]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/variables/AxisTickStrategies.html
-[Axis scroll strategies]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/variables/AxisScrollStrategies.html
-[UI position origins]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/variables/UIOrigins.html
-[UI layout builders]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/variables/UILayoutBuilders.html
-[UI element builders]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/variables/UIElementBuilders.html
-[Solid FillStyle]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/classes/SolidFill.html
-[RGBA color factory]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/functions/ColorRGBA.html
-[Time formatting functions]: https://lightningchart.com/lightningchart-js-api-documentation/v4.0.0/variables/TimeFormattingFunctions.html
+[Dashboard]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/classes/Dashboard.html
+[XY cartesian chart]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/classes/ChartXY.html
+[Line series]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/classes/LineSeries.html
+[Axis]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/classes/Axis.html
+[Axis tick strategies]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/variables/AxisTickStrategies.html
+[Axis scroll strategies]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/variables/AxisScrollStrategies.html
+[UI position origins]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/variables/UIOrigins.html
+[UI layout builders]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/variables/UILayoutBuilders.html
+[UI element builders]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/variables/UIElementBuilders.html
+[Solid FillStyle]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/classes/SolidFill.html
+[RGBA color factory]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/functions/ColorRGBA.html
+[Time formatting functions]: https://lightningchart.com/lightningchart-js-api-documentation/v4.1.0/variables/TimeFormattingFunctions.html
 
