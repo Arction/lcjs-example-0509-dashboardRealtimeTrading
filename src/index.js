@@ -35,6 +35,7 @@ const COLUMNS = showFullDashboard ? 10 : 3
 const ROWS = showFullDashboard ? 10 : 3
 const HISTORYMS = 60 * 1000
 
+// NOTE: Using `Dashboard` is no longer recommended for new applications. Find latest recommendations here: https://lightningchart.com/js-charts/docs/basic-topics/grouping-charts/
 const dashboard = lightningChart()
     .Dashboard({
         numberOfColumns: COLUMNS,
