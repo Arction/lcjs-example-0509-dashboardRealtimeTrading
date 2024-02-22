@@ -69,7 +69,7 @@ for (let column = 0; column < COLUMNS; column += 1) {
             .setTickStrategy(AxisTickStrategies.Empty)
             .setMouseInteractions(false)
             .setScrollStrategy(AxisScrollStrategies.progressive)
-            .setInterval({ start: -HISTORYMS, end: 0, stopAxisAfter: false })
+            .setDefaultInterval((state) => ({ end: state.dataMax, start: (state.dataMax ?? 0) - HISTORYMS, stopAxisAfter: false }))
             .setStrokeStyle(emptyLine)
             .setAnimationScroll(false)
         const axisY = chart
@@ -110,27 +110,21 @@ if (!showFullDashboard) {
 
 const seriesList = chartList.map((chart, i) => {
     const series = chart
-        .addLineSeries({
-            dataPattern: {
-                // pattern: 'ProgressiveX' -> every X value is larger than previous one.
-                pattern: 'ProgressiveX',
-                // regularProgressiveStep: true -> step between every X value is always same (1, 2, 3, ...).
-                regularProgressiveStep: true,
-            },
+        .addPointLineAreaSeries({
+            dataPattern: 'ProgressiveX',
             // Pass custom supplied index for automatic series coloring.
             automaticColorIndex: i,
         })
         .setName(`Channel ${i + 1}`)
         .setStrokeStyle((stroke) => stroke.setThickness(1))
-        .setDataCleaning({
-            minDataPointCount: 1000,
-        })
-        .setCursorResultTableFormatter((builder, _, x, y, dataPoint) =>
+        .setAreaFillStyle(emptyFill)
+        .setMaxSampleCount(HISTORYMS)
+        .setCursorResultTableFormatter((builder, _, sample) =>
             builder
                 .addRow(series.getName())
                 // Display "age" of data point, as time passed since current time.
-                .addRow(TimeFormattingFunctions.hhmmssmmm(dataPoint.x - window.performance.now()))
-                .addRow('Value: ', series.axisY.formatValue(dataPoint.y)),
+                .addRow(TimeFormattingFunctions.hhmmssmmm(sample.x - window.performance.now()))
+                .addRow('Value: ', series.axisY.formatValue(sample.y)),
         )
     return series
 })
@@ -185,14 +179,14 @@ Promise.all(
     let lastX = -initialDataVisibleCount
     const pushData = () => {
         const tNow = window.performance.now()
-        // For each unique data set, prepare list of new XY points to add.
+        // For each unique data set, prepare list of new Y values to add.
         const dataSetNewPoints = dataSetsAndSeries.map((_) => [])
         for (let x = lastX + 1; x < tNow; x += 1) {
             let iSample = x % dataSetLength
             while (iSample < 0) iSample += dataSetLength
             for (let iDataSet = 0; iDataSet < dataSetsCount; iDataSet += 1) {
                 const y = dataSetsAndSeries[iDataSet].dataSet[iSample]
-                dataSetNewPoints[iDataSet].push({ x, y })
+                dataSetNewPoints[iDataSet].push(y)
             }
             lastX = x
         }
@@ -200,7 +194,7 @@ Promise.all(
         dataSetsAndSeries.forEach((item, i) => {
             const newPoints = dataSetNewPoints[i]
             item.seriesList.forEach((series) => {
-                series.add(newPoints)
+                series.appendSamples({ yValues: newPoints })
             })
         })
         requestAnimationFrame(pushData)
