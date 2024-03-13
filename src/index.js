@@ -40,7 +40,7 @@ const dashboard = lightningChart()
     .Dashboard({
         numberOfColumns: COLUMNS,
         numberOfRows: ROWS + 1,
-        theme: Themes[new URLSearchParams(window.location.search).get('theme') || 'darkGold'] || undefined,
+        theme: Themes[new URLSearchParams(window.location.search).get('theme') || 'darkGold'] || undefined
     })
     .setSplitterStyle(new SolidLine({ thickness: 0 }))
 
