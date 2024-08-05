@@ -3,10 +3,10 @@
  */
 
 // Import LightningChartJS
-const lcjs = require('@arction/lcjs')
+const lcjs = require('@lightningchart/lcjs')
 
 // Import xydata
-const xydata = require('@arction/xydata')
+const xydata = require('@lightningchart/xydata')
 
 const {
     lightningChart,
@@ -63,9 +63,7 @@ for (let column = 0; column < COLUMNS; column += 1) {
             .setTitleMargin({ top: 0, bottom: 0 })
             .setPadding(0)
             .setMouseInteractions(false)
-            .setAutoCursor((autoCursor) =>
-                autoCursor.setTickMarkerXVisible(false).setTickMarkerYVisible(false).setAutoFitStrategy(undefined),
-            )
+            .setCursor((autoCursor) => autoCursor.setTickMarkerXVisible(false).setTickMarkerYVisible(false).setAutoFitStrategy(undefined))
         const axisX = chart
             .getDefaultAxisX()
             .setTickStrategy(AxisTickStrategies.Empty)
@@ -121,13 +119,6 @@ const seriesList = chartList.map((chart, i) => {
         .setStrokeStyle((stroke) => stroke.setThickness(1))
         .setAreaFillStyle(emptyFill)
         .setMaxSampleCount(HISTORYMS)
-        .setCursorResultTableFormatter((builder, _, sample) =>
-            builder
-                .addRow(series.getName())
-                // Display "age" of data point, as time passed since current time.
-                .addRow(TimeFormattingFunctions.hhmmssmmm(sample.x - window.performance.now()))
-                .addRow('Value: ', series.axisY.formatValue(sample.y)),
-        )
     return series
 })
 
