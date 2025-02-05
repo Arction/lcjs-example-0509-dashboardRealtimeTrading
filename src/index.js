@@ -42,7 +42,6 @@ const dashboard = lightningChart({
     .Dashboard({
         numberOfColumns: COLUMNS,
         numberOfRows: ROWS + 1,
-        theme: Themes[new URLSearchParams(window.location.search).get('theme') || 'darkGold'] || undefined,
     })
     .setSplitterStyle(new SolidLine({ thickness: 0 }))
 
@@ -62,22 +61,24 @@ for (let column = 0; column < COLUMNS; column += 1) {
             .setTitleFillStyle(emptyFill)
             .setTitleMargin({ top: 0, bottom: 0 })
             .setPadding(0)
-            .setMouseInteractions(false)
+            .setUserInteractions(undefined)
             .setCursor((autoCursor) => autoCursor.setTickMarkerXVisible(false).setTickMarkerYVisible(false).setAutoFitStrategy(undefined))
         const axisX = chart
             .getDefaultAxisX()
             .setTickStrategy(AxisTickStrategies.Empty)
-            .setMouseInteractions(false)
             .setScrollStrategy(AxisScrollStrategies.progressive)
             .setDefaultInterval((state) => ({ end: state.dataMax, start: (state.dataMax ?? 0) - HISTORYMS, stopAxisAfter: false }))
             .setStrokeStyle(emptyLine)
             .setAnimationScroll(false)
+            .setTitleEffect(false)
         const axisY = chart
             .getDefaultAxisY()
             .setTickStrategy(AxisTickStrategies.Empty)
-            .setMouseInteractions(false)
             .setStrokeStyle(emptyLine)
             .setAnimationScroll(false)
+            .setTitleEffect(false)
+        chart.setTitleEffect(false)
+        chart.setSeriesBackgroundEffect(false)
         chartList.push(chart)
     }
 }
@@ -86,7 +87,7 @@ for (let column = 0; column < COLUMNS; column += 1) {
 uiPanel
     .addUIElement(UIElementBuilders.TextBox.setBackground(UIBackgrounds.None))
     .setText(`${COLUMNS * ROWS} live channels (1 ms resolution) 1 minute history`)
-    .setMouseInteractions(false)
+    .setPointerEvents(false)
     .setPosition({ x: 50, y: 100 })
     .setOrigin(UIOrigins.CenterTop)
 
@@ -100,7 +101,7 @@ if (!showFullDashboard) {
         .setMargin(30)
         .setDraggingMode(UIDraggingModes.notDraggable)
         .setMouseStyle(MouseStyles.Point)
-        .onMouseClick(() => {
+        .addEventListener('click', () => {
             // Add '?full = true' to URL and reload page.
             let url = window.location.href
             url += (url.split('?')[1] ? '&' : '?') + 'full=true'
@@ -119,6 +120,7 @@ const seriesList = chartList.map((chart, i) => {
         .setStrokeStyle((stroke) => stroke.setThickness(1))
         .setAreaFillStyle(emptyFill)
         .setMaxSampleCount(HISTORYMS)
+        .setEffect(false)
     return series
 })
 
